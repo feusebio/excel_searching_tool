@@ -12,35 +12,54 @@
         <hr>
         <AdvancedFilter></AdvancedFilter>
         <hr>
-        <VueQuintable :loading="loading" :config="config" :rows="remoteRows">
-            <template v-slot:loading>
-                <div class="text-center py-3 mb-3 text-white bg-success">
-                    Loading... <font-awesome-icon class="ml-3" icon="circle-notch" spin></font-awesome-icon>
-                </div>
-            </template>
-        </VueQuintable>
+        <el-table
+            :data="_servers"
+            :default-sort = "{prop: 'date', order: 'descending'}"
+            style="width: 100%">
+            <el-table-column
+                prop="model"
+                label="Model"
+                sortable
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="ram"
+                label="RAM"
+                width="180">
+            </el-table-column>
+            <el-table-column
+                prop="hdd"
+                label="HDD">
+            </el-table-column>
+            <el-table-column
+                prop="location"
+                label="Location">
+            </el-table-column>
+            <el-table-column
+                prop="price"
+                label="Price">
+            </el-table-column>
+        </el-table>
     </div>
 </template>
 
 <script>
 
 import AdvancedFilter from "./AdvancedFilter";
+import { mapGetters } from 'vuex';
+
 export default {
     components: {AdvancedFilter},
+    computed:{
+        ...mapGetters({
+            _servers: 'SERVERS_FILTERED'
+        })
+    },
     data(){
         return {
             file: '',
             loading:false,
-            remoteRows: [],
-            config: {
-                columns: [
-                    {headline: 'model'},
-                    {headline: 'ram'},
-                    {headline: 'hdd'},
-                    {headline: 'location'},
-                    {headline: 'price'}
-                ],
-            },
+            serversFiltered: []
         }
     },
 
@@ -59,20 +78,8 @@ export default {
                 }
             ).then(({data}) => {
                 console.log('SUCCESS!!');
-                let rows = [];
-                _.forEach(data.data, function(value) {
-                    var cell = [
-                        {'text' : value.model},
-                        {'text' : value.ram},
-                        {'text' : value.hdd},
-                        {'text' : value.location},
-                        {'text' : value.price}
-                    ]
-                    rows.push(cell);
-                });
-
-                console.log('DATA: ', rows);
-                this.remoteRows = rows;
+                this.$store.commit('SET_SERVERS', data.data);
+                this.$store.commit('SET_SERVERS_FILTERED', data.data);
                 this.loading = false;
             })
             .catch(function(){

@@ -1,6 +1,7 @@
 require('./bootstrap');
 
 window.Vue = require('vue').default;
+import store from './store';
 
 import "@sensetence/vue-quintable/dist/vue-quintable.css"
 import VueTable from '@sensetence/vue-quintable'
@@ -14,5 +15,6 @@ Vue.use(ElementUI);
 Vue.component('importer-component', require('./components/ImporterComponent.vue').default);
 
 const app = new Vue({
+    store,
     el: '#app',
 });
