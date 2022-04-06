@@ -13,6 +13,7 @@
         <AdvancedFilter></AdvancedFilter>
         <hr>
         <el-table
+            v-loading="loading"
             :data="_servers"
             :default-sort = "{prop: 'date', order: 'descending'}"
             style="width: 100%">
@@ -58,7 +59,7 @@ export default {
     data(){
         return {
             file: '',
-            loading:false,
+            loading: false,
             serversFiltered: []
         }
     },

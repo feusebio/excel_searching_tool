@@ -1,7 +1,7 @@
 <template>
     <div class="block">
         <span class="demonstration">Harddisk type</span>
-        <el-select v-model="value" filterable placeholder="Select" @change="changeType">
+        <el-select v-model="value" clearable filterable placeholder="Select" @change="changeType" @clear="cleanFilter">
             <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -14,9 +14,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import mixinFilters from '../mixins/filters_handle'
 
 export default {
     name: "DropdownHdd",
+    mixins: [mixinFilters],
     computed:{
         ...mapGetters({
             _servers: 'SERVERS'
@@ -40,9 +42,8 @@ export default {
     },
     methods:{
         changeType(){
-            console.log('T: ', this.value)
+            console.log('hddType: ', this.value)
             this.servers = _.filter(this._servers, { 'hddType': String(this.value) });
-            console.log('Serv: ', this.servers)
             this.$store.commit('SET_SERVERS_FILTERED', this.servers)
         }
     }

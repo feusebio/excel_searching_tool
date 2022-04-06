@@ -24,7 +24,7 @@ class ServerController extends Controller
                     'price' => $item[4],
                     'ramCapacity' => $this->ramCapacity($item[1]),
                     'hddType' => $this->hddType($item[2]),
-                    'storageCapacity' => ''
+                    'storageCapacity' => $this->storageCapacity($item[2])
                 ];
                 $servers[] = $server;
             }
@@ -59,9 +59,23 @@ class ServerController extends Controller
     }
 
     private function storageCapacity($storageText){
-        /*$storage = explode('GB', $storageText);
-        or
-        $storage = explode('TB', $storageText);
-        return $storage[0];*/
+        $storage = explode('GB', $storageText);
+        $unit = 'GB';
+        $storageCapacity = 0;
+
+        if(sizeof($storage) == 1){
+            $storage = explode('TB', $storageText);
+            $unit = 'TB';
+        }
+
+        $factors = explode('x', $storage[0]);
+
+        if($unit === 'GB'){
+            $storageCapacity = $factors[0] * $factors[0] * 1024; //GB
+        }else{
+            $storageCapacity = $factors[0] * $factors[0] * 1024 * 1000; //TB
+        }
+
+        return $storageCapacity;
     }
 }
