@@ -107,12 +107,10 @@ export default {
                     break
             }
 
-
-
             this.servers = _.filter(this._servers, function(server) {
                 return server.storageCapacity >= minCapacity && server.storageCapacity <= maxCapacity
             });
-            
+
             console.log('List: ', this.servers)
             this.$store.commit('SET_SERVERS_FILTERED', this.servers)
         }

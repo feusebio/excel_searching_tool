@@ -3,12 +3,19 @@
         <div>
             <h2>Servers importer file</h2>
             <hr/>
-            <label>File
-                <input type="file" @change="handleFileUpload( $event )"/>
-            </label>
-            <br>
-            <button v-on:click="submitFile()">Submit</button>
+            <el-upload
+                class="upload-demo"
+                ref="upload"
+                action="#"
+                :on-change="handleFileUpload"
+                :auto-upload="false">
+                <el-button slot="trigger" size="small" type="primary">select file</el-button>
+                <el-button style="margin-left: 10px;" size="small" type="success" @click="submitFile()">upload to server</el-button>
+                <div class="el-upload__tip" slot="tip">Excel file format</div>
+            </el-upload>
         </div>
+
+
         <hr>
         <AdvancedFilter></AdvancedFilter>
         <hr>
