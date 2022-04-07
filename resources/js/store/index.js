@@ -23,7 +23,7 @@ const mutations = {
         state.servers = data
         state.locations = _.uniq(_.map(data, 'location'));
     },
-    SET_SERVERS_FILTERED: (state, data) => { state.serversFiltered = data },
+    SET_SERVERS_FILTERED: (state, data) => { state.serversFiltered = data }
 }
 
 const actions = {

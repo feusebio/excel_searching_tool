@@ -49,7 +49,6 @@ export default {
         changeLocation(){
             console.log('Location ', this.value)
             this.servers = _.filter(this._servers, { 'location': this.value });
-
             this.$store.commit('SET_SERVERS_FILTERED', this.servers)
         }
     }

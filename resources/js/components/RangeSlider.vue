@@ -26,7 +26,7 @@ export default {
     },
     data() {
         return {
-            value: [0, 5],
+            value: [0, 11],
             marks: {
                 // 0, 250GB, 500GB, 1TB, 2TB, 3TB, 4TB, 8TB, 12TB, 24TB, 48TB, 72TB
                 0: '0',

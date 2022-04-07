@@ -3,7 +3,7 @@
         <p>
             <RangeSlider></RangeSlider>
         </p>
-        </br>
+        <br/>
         <p>
             <Checkboxes></Checkboxes>
         </p>

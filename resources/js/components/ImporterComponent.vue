@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <div>
-            <h2>Servers importer file</h2>
+            <p/>
+                <h2>Servers importer file</h2>
             <hr/>
             <el-upload
                 class="upload-demo"
@@ -18,6 +19,11 @@
 
         <hr>
         <AdvancedFilter></AdvancedFilter>
+        <el-row>
+            <p>
+                <br/><el-button type="primary" @click="cleanFilter">Clean filters</el-button>
+            </p>
+        </el-row>
         <hr>
         <el-table
             v-loading="loading"
@@ -55,9 +61,11 @@
 
 import AdvancedFilter from "./AdvancedFilter";
 import { mapGetters } from 'vuex';
+import mixinFilters from '../mixins/filters_handle'
 
 export default {
     components: {AdvancedFilter},
+    mixins: [mixinFilters],
     computed:{
         ...mapGetters({
             _servers: 'SERVERS_FILTERED'
