@@ -2,7 +2,7 @@
     <div class="block">
         <span class="demonstration">Storage</span>
         <el-slider
-            v-model="value"
+            v-model="valueSlider"
             input-size="mini"
             range
             @change="changeCapacity"
@@ -16,9 +16,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import mixinFilters from '../mixins/filters_handle'
 
 export default {
     name: "RangeSlider",
+    mixins: [mixinFilters],
     computed:{
         ...mapGetters({
             _servers: 'SERVERS'
@@ -26,7 +28,7 @@ export default {
     },
     data() {
         return {
-            value: [0, 11],
+            valueSlider: [0, 11],
             marks: {
                 // 0, 250GB, 500GB, 1TB, 2TB, 3TB, 4TB, 8TB, 12TB, 24TB, 48TB, 72TB
                 0: '0',
@@ -111,7 +113,6 @@ export default {
                 return server.storageCapacity >= minCapacity && server.storageCapacity <= maxCapacity
             });
 
-            console.log('List: ', this.servers)
             this.$store.commit('SET_SERVERS_FILTERED', this.servers)
         }
     }

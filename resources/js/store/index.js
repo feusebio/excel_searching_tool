@@ -9,13 +9,15 @@ let _self = this
 const state = {
     servers: [],
     serversFiltered: [],
-    locations: []
+    locations: [],
+    initFilters: 0
 }
 
 const getters = {
     SERVERS : state => state.servers,
     SERVERS_FILTERED : state => state.serversFiltered,
-    LOCATIONS : state => state.locations
+    LOCATIONS : state => state.locations,
+    INIT_FILTERS : state => state.initFilters
 }
 
 const mutations = {
@@ -23,7 +25,8 @@ const mutations = {
         state.servers = data
         state.locations = _.uniq(_.map(data, 'location'));
     },
-    SET_SERVERS_FILTERED: (state, data) => { state.serversFiltered = data }
+    SET_SERVERS_FILTERED: (state, data) => { state.serversFiltered = data },
+    SET_INIT_FILTERS: (state, data) => { state.initFilters = data }
 }
 
 const actions = {

@@ -19,9 +19,11 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import mixinFilters from '../mixins/filters_handle'
 
 export default {
     name: "Checklist",
+    mixins: [mixinFilters],
     computed:{
         ...mapGetters({
             _servers: 'SERVERS'
@@ -39,8 +41,11 @@ export default {
             this.servers = _.filter(this._servers, function(server) {
                 return _.includes(_self.checkList, server.ramCapacity);
             });
-
-            this.$store.commit('SET_SERVERS_FILTERED', this.servers)
+            if(this.checkList.length == 0){
+                this.clearFilter()
+            }else{
+                this.$store.commit('SET_SERVERS_FILTERED', this.servers)
+            }
         }
     }
 };

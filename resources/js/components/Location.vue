@@ -1,7 +1,7 @@
 <template>
     <div class="block">
         <span class="demonstration">Location</span>
-        <el-select v-model="value" clearable filterable placeholder="Select" @change="changeLocation" @clear="cleanFilter">
+        <el-select v-model="value" clearable filterable placeholder="Select" @change="changeLocation" @clear="clearFilter">
             <el-option
                 v-for="item in locations"
                 :key="item.value"
@@ -22,13 +22,16 @@ export default {
     computed:{
         ...mapGetters({
             _locations: 'LOCATIONS',
-            _servers: 'SERVERS'
+            _servers: 'SERVERS_FILTERED'
         })
     },
     data() {
         return {
             value: '',
-            locations: []
+            locations: [],
+            oldData: [],
+            newData: [],
+            servers: []
         }
     },
     watch: {
@@ -37,7 +40,6 @@ export default {
             this.locations = [] //cleaning
 
             _.forEach(val, function(location) {
-                console.log('Loc: ', location)
                 _self.locations.push({
                         'value' : location,
                         'label' :  location
@@ -47,7 +49,6 @@ export default {
     },
     methods:{
         changeLocation(){
-            console.log('Location ', this.value)
             this.servers = _.filter(this._servers, { 'location': this.value });
             this.$store.commit('SET_SERVERS_FILTERED', this.servers)
         }

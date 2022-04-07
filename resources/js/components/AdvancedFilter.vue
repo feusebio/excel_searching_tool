@@ -8,7 +8,6 @@
             <Checkboxes></Checkboxes>
         </p>
         <p>
-
         </p>
         <el-row>
             <el-col :span="12">

@@ -1,7 +1,7 @@
 <template>
     <div class="block">
         <span class="demonstration">Harddisk type</span>
-        <el-select v-model="value" clearable filterable placeholder="Select" @change="changeType" @clear="cleanFilter">
+        <el-select v-model="value" clearable filterable placeholder="Select" @change="changeType" @clear="clearFilter">
             <el-option
                 v-for="item in options"
                 :key="item.value"
@@ -21,8 +21,10 @@ export default {
     mixins: [mixinFilters],
     computed:{
         ...mapGetters({
-            _servers: 'SERVERS'
+            _servers: 'SERVERS_FILTERED'
         })
+    },
+    watch: {
     },
     data() {
         return {
@@ -42,7 +44,6 @@ export default {
     },
     methods:{
         changeType(){
-            console.log('hddType: ', this.value)
             this.servers = _.filter(this._servers, { 'hddType': String(this.value) });
             this.$store.commit('SET_SERVERS_FILTERED', this.servers)
         }
